@@ -1,4 +1,5 @@
-/**
+
+/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -65,6 +66,8 @@ public class PulsarBenchmarkDriver implements BenchmarkDriver {
 
     private PulsarConfig config;
 
+
+
     private String namespace;
     private ProducerBuilder<byte[]> producerBuilder;
 
@@ -78,10 +81,9 @@ public class PulsarBenchmarkDriver implements BenchmarkDriver {
                 .connectionsPerBroker(config.client.connectionsPerBroker)
                 .statsInterval(0, TimeUnit.SECONDS)
                 .serviceUrl(config.client.serviceUrl)
-                .maxConcurrentLookupRequests(config.client.maxConcurrentLookupRequests)
-                .maxLookupRequests(Integer.MAX_VALUE)
+                .maxConcurrentLookupRequests(50000)
+                .maxLookupRequests(100000)
                 .memoryLimit(config.client.clientMemoryLimitMB, SizeUnit.MEGA_BYTES)
-                .operationTimeout(10, TimeUnit.MINUTES)
                 .listenerThreads(Runtime.getRuntime().availableProcessors());
 
         if (config.client.serviceUrl.startsWith("pulsar+ssl")) {
